@@ -1,0 +1,68 @@
+{% extends "inventory/base.html" %}
+{% block content%}
+<h1 class="mb-3">Artículos añadidos por {{ view.kwargs.username}} ({{ page_obj.paginator.count }})</h1>
+
+	<form method="get" action="{% url 'user-items' user %}">
+	    <p>
+	    	<p>Filtrar por nombre: <input type="text" value="{{ filter }}" name="filter"/>
+	    		<input class="btn btn-outline-info" type="submit" value="Filtrar"/>
+			</p>
+	    	Ordenar por: 
+	    	<select class="form-select" name="orderby" id="sort-select">
+				{% if orderby == 'box' %}
+					<option value="box">Caja</option>
+					<option value="item_name">Nombre</option>
+					<option value="-date_posted">Fecha</option>
+				{% elif orderby == '-date_posted' %}
+					<option value="-date_posted">Fecha</option>
+					<option value="box">Caja</option>
+					<option value="item_name">Nombre</option>
+	    		{% else %}
+					<option value="item_name">Nombre</option>
+					<option value="box">Caja</option>
+					<option value="-date_posted">Fecha</option>
+				{% endif %}
+			</select>
+
+	    	<input class="btn btn-outline-info" type="submit" value="Reordenar"/>
+	    </p>
+	</form>
+
+
+
+
+	{% for item in items %}
+		<article class="media content-section">
+			<img class="rounded-circle article-img" src="{{ item.author.profile.image.url }}">
+			<div class="media-body">
+			<div class="article-metadata">
+			  	<a class="mr-2" href="{% url 'user-items' item.author.username %}">{{ item.author }}</a>
+				<small class="text-muted">{{ item.date_posted|date:"F d, Y" }}</small>
+			</div>
+			<h2><a class="article-title" href="{% url 'item-detail' item.id %}">{{ item.item_name }}</a></h2>
+			<p class="article-content">Caja {{ item.box }}</p>
+			</div>
+		</article>
+	{% endfor %}
+	{% if is_paginated %}
+		
+		{% if page_obj.has_previous %}
+			<a class="btn btn-outline-info mb-4" href="?page=1&orderby={{ orderby }}">Primera</a>
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&orderby={{ orderby }}">Anterior</a>
+		{% endif %}
+
+		{% for num in page_obj.paginator.page_range %}
+			{% if page_obj.number == num %}
+				<a class="btn btn-info mb-4" href="?page={{ num }}&orderby={{ orderby }}">{{ num }}</a>
+			{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+				<a class="btn btn-outline-info mb-4" href="?page={{ num }}&orderby={{ orderby }}">{{ num }}</a>
+			{% endif %}
+		{% endfor %}
+
+		{% if page_obj.has_next %}
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}&orderby={{ orderby }}">Siguiente</a>
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}&orderby={{ orderby }}">Última</a>
+		{% endif %}
+
+	{% endif %}
+{% endblock content%}

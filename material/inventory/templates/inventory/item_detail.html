@@ -1,0 +1,24 @@
+{% extends "inventory/base.html" %}
+{% block content%}
+	<article class="media content-section">
+		{% if object.author %}
+			<img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+		{% endif %}
+		<div class="media-body">
+		<div class="article-metadata">
+			{% if object.author %}
+				<a class="mr-2" href="{% url 'user-items' object.author.username %}">{{ object.author }}</a>
+			{% endif %}
+			<small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+		  {% if object.author == user %}
+		  	<div>
+		  		<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-update' object.id %}">Actualizar</a>
+		  		<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'item-delete' object.id %}">Eliminar</a>
+		  	</div>
+		  {% endif %}
+		</div>
+		<h2 class="article-title">{{ object.item_name }}</h2>
+		<p class="article-content">Caja {{ object.box }}</p>
+		</div>
+	</article>
+{% endblock content%}

@@ -1,0 +1,10 @@
+{% extends "inventory/base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+	<h2>Acabas de cerrar tu sesión</h2>
+	<div class="border-top pt-3">
+		<small class="text-muted">
+			<a href="{% url 'login' %}">Iniciar Sesión</a>
+		</small>
+	</div>
+{% endblock content%}
