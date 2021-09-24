@@ -2,13 +2,15 @@
 {% block content%}
 <h1 class="mb-3">Artículos añadidos por {{ view.kwargs.username}} ({{ page_obj.paginator.count }})</h1>
 
-	<form method="get" action="{% url 'user-items' user %}">
+	<form method="get" action="{% url 'inventory-home' %}">
 	    <p>
-	    	<p>Filtrar por nombre: <input type="text" value="{{ filter }}" name="filter"/>
-	    		<input class="btn btn-outline-info" type="submit" value="Filtrar"/>
-			</p>
-	    	Ordenar por: 
-	    	<select class="form-select" name="orderby" id="sort-select">
+	    	<h6>Filtrar por nombre:</h6>
+	    	<p>			
+	    		<input class="custom-input-text" type="text" value="{{ filter }}" name="filter" style='width:79%'/>
+	    		<input class="btn custom-button" type="submit" value="Filtrar" style='width:20%'/>
+		</p>
+	    	<h6>Ordenar por:  </h6>
+	    	<select class="form-select custom-unselected-height custom-input-select" name="orderby" id="sort-select" style='width:79%'>
 				{% if orderby == 'box' %}
 					<option value="box">Caja</option>
 					<option value="item_name">Nombre</option>
@@ -17,14 +19,13 @@
 					<option value="-date_posted">Fecha</option>
 					<option value="box">Caja</option>
 					<option value="item_name">Nombre</option>
-	    		{% else %}
+	    			{% else %}
 					<option value="item_name">Nombre</option>
 					<option value="box">Caja</option>
 					<option value="-date_posted">Fecha</option>
 				{% endif %}
-			</select>
-
-	    	<input class="btn btn-outline-info" type="submit" value="Reordenar"/>
+		</select>
+	    	<input class="btn custom-button" type="submit" value="Reordenar" style='width:20%'/>
 	    </p>
 	</form>
 

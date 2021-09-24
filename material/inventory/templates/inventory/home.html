@@ -1,18 +1,18 @@
 {% extends "inventory/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block content%}
+{% block content%} 
 	<h1>Listado de Artículos</h1>
 
 	<form method="get" action="{% url 'inventory-home' %}">
 	    <p>
 	    	<h6>Filtrar por nombre:</h6>
-	    	<p>
-	    		<input type="text" value="{{ filter }}" name="filter" style='width:79%'/>
-	    		<input class="btn btn-outline-info" type="submit" value="Filtrar" style='width:20%'/>
+	    	<p>			
+	    		<input class="custom-input-text" type="text" value="{{ filter }}" name="filter" style='width:79%'/>
+	    		<input class="btn custom-button" type="submit" value="Filtrar" style='width:20%'/>
 		</p>
 	    	<h6>Ordenar por:  </h6>
-	    	<select class="form-select custom-unselected-height" name="orderby" id="sort-select" style='width:79%'>
+	    	<select class="form-select custom-unselected-height custom-input-select" name="orderby" id="sort-select" style='width:79%'>
 				{% if orderby == 'box' %}
 					<option value="box">Caja</option>
 					<option value="item_name">Nombre</option>
@@ -27,7 +27,7 @@
 					<option value="-date_posted">Fecha</option>
 				{% endif %}
 		</select>
-	    	<input class="btn btn-outline-info" type="submit" value="Reordenar" style='width:20%'/>
+	    	<input class="btn custom-button" type="submit" value="Reordenar" style='width:20%'/>
 	    </p>
 	</form>
 

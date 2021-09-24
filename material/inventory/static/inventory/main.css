@@ -1,5 +1,5 @@
 body {
-  background: #fafafa;
+  background: #ededed; /*this is the color of the background of the main body of the page #fafafa*/
   color: #333333;
   margin-top: 5rem;
 }
@@ -12,8 +12,12 @@ ul {
   margin: 0;
 }
 
+.nav-shadow {
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,.2);
+}
+
 .bg-steel {
-  background-color: #5f788a;
+  background-color: #5f788a; /*this is the color of the navigation bar*/
 }
 
 .site-header .navbar-nav .nav-link {
@@ -29,19 +33,19 @@ ul {
 }
 
 .content-section {
-  background: #ffffff;
+  background: #ffffff;/*this is the color of the content boxes*/
   padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
+  border: 0px solid #dddddd; /*this sets a border around the content boxes*/
+  border-radius: 10px; /*this rounds the corners of the content boxes*/
   margin-bottom: 20px;
 }
 
 .article-title {
-  color: #444444;
+  color: #444444; /*this is the color of the title for the inventory items*/
 }
 
 a.article-title:hover {
-  color: #428bca;
+  color: #5f788a; /*this is the color of the title for the inventory items when we hover over it*/
   text-decoration: none;
 }
 
@@ -88,9 +92,48 @@ a.article-title:hover {
   height: 30px
 }
 
+/*style for the rounded navbar image*/
 .navbar-img {
   border-radius: 50%;
   height: 40px;
   width: 40px;
   margin-left: 10px;
 }
+
+/*input text styles*/
+
+:root {
+  --input-border: #8b8a8b;
+  --input-focus-h: 245;
+  --input-focus-s: 100%;
+  --input-focus-l: 42%;
+}
+
+.custom-input-text {
+  padding: 0.2em 0.5em;
+  background-color: #fff;
+  border: 0px solid var(--input-border);
+  border-radius: 10px;
+}
+
+.custom-input-select {
+  padding: 0.1em 0.5em;
+  background-color: #fff;
+  border: 0px solid var(--input-border);
+  border-radius: 10px;
+}
+
+.custom-button {
+  color: #fff;
+  padding: 0.2em 0.5em;
+  background-color: #5f788a;
+  border: 0px solid var(--input-border);
+  border-radius: 10px;
+}
+
+
+
+
+
+/*extra*/
+
