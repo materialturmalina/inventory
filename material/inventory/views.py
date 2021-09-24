@@ -71,7 +71,7 @@ class BoxListView(ListView):
 	template_name = 'inventory/box_view.html'
 	context_object_name = 'items'
 	ordering = ['box']
-	paginate_by = 5
+	#paginate_by = 5
 
 class ItemDetailView(DetailView):
 	model = Item

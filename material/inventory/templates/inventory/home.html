@@ -54,24 +54,25 @@
 		</article>
 		</div>
 	{% endfor %}
+
 	{% if is_paginated %}
 		
 		{% if page_obj.has_previous %}
-			<a class="btn btn-outline-info mb-4" href="?page=1&orderby={{ orderby }}">Primera</a>
-			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&orderby={{ orderby }}">Anterior</a>
+			<div onclick="location.href='?page=1&orderby={{ orderby }}';" class="btn mb-4 custom-button">Primera</div>
+			<div onclick="location.href='?page={{ page_obj.previous_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">Anterior</div>
 		{% endif %}
 
 		{% for num in page_obj.paginator.page_range %}
 			{% if page_obj.number == num %}
-				<a class="btn btn-info mb-4" href="?page={{ num }}&orderby={{ orderby }}">{{ num }}</a>
+				<div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">{{ num }}</div>
 			{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-				<a class="btn btn-outline-info mb-4" href="?page={{ num }}&orderby={{ orderby }}">{{ num }}</a>
+				<div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">{{ num }}</div>
 			{% endif %}
 		{% endfor %}
 
 		{% if page_obj.has_next %}
-			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}&orderby={{ orderby }}">Siguiente</a>
-			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}&orderby={{ orderby }}">Última</a>
+			<div onclick="location.href='?page={{ page_obj.next_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">Siguiente</div>
+			<div onclick="location.href='?page={{ page_obj.paginator.num_pages }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">Última</div>
 		{% endif %}
 
 	{% endif %}

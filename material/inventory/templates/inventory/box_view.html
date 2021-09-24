@@ -18,7 +18,7 @@
     </div>
     {% endfor %}
 
-
+    {% comment %}
     {% if is_paginated %}
         
         {% if page_obj.has_previous %}
@@ -40,4 +40,5 @@
         {% endif %}
 
     {% endif %}
+    {% endcomment %}
 {% endblock content%}
