@@ -12,6 +12,10 @@ ul {
   margin: 0;
 }
 
+.nav-shadow {
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,.2);
+}
+
 .bg-steel {
   background-color: #5f788a; /*this is the color of the navigation bar*/
 }
@@ -41,7 +45,7 @@ ul {
 }
 
 a.article-title:hover {
-  color: #428bca; /*this is the color of the title for the inventory items when we hover over it*/
+  color: #5f788a; /*this is the color of the title for the inventory items when we hover over it*/
   text-decoration: none;
 }
 
@@ -96,7 +100,7 @@ a.article-title:hover {
   margin-left: 10px;
 }
 
-/*input text styles
+/*input text styles*/
 
 :root {
   --input-border: #8b8a8b;
@@ -105,14 +109,31 @@ a.article-title:hover {
   --input-focus-l: 42%;
 }
 
-.custom-input-field {
-  font-size: 16px;
-  font-size: max(16px, 1em);
-  font-family: inherit;
-  padding: 0.25em 0.5em;
+.custom-input-text {
+  padding: 0.2em 0.5em;
   background-color: #fff;
-  border: 10px solid var(--input-border);
-  border-radius: 20px;
+  border: 0px solid var(--input-border);
+  border-radius: 10px;
 }
-*/
+
+.custom-input-select {
+  padding: 0.1em 0.5em;
+  background-color: #fff;
+  border: 0px solid var(--input-border);
+  border-radius: 10px;
+}
+
+.custom-button {
+  color: #fff;
+  padding: 0.2em 0.5em;
+  background-color: #5f788a;
+  border: 0px solid var(--input-border);
+  border-radius: 10px;
+}
+
+
+
+
+
+/*extra*/
 
