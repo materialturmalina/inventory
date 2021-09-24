@@ -1,5 +1,5 @@
 body {
-  background: #fafafa;
+  background: #ededed; /*this is the color of the background of the main body of the page #fafafa*/
   color: #333333;
   margin-top: 5rem;
 }
@@ -13,7 +13,7 @@ ul {
 }
 
 .bg-steel {
-  background-color: #5f788a;
+  background-color: #5f788a; /*this is the color of the navigation bar*/
 }
 
 .site-header .navbar-nav .nav-link {
@@ -29,19 +29,19 @@ ul {
 }
 
 .content-section {
-  background: #ffffff;
+  background: #ffffff;/*this is the color of the content boxes*/
   padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
+  border: 0px solid #dddddd; /*this sets a border around the content boxes*/
+  border-radius: 10px; /*this rounds the corners of the content boxes*/
   margin-bottom: 20px;
 }
 
 .article-title {
-  color: #444444;
+  color: #444444; /*this is the color of the title for the inventory items*/
 }
 
 a.article-title:hover {
-  color: #428bca;
+  color: #428bca; /*this is the color of the title for the inventory items when we hover over it*/
   text-decoration: none;
 }
 

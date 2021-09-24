@@ -3,6 +3,7 @@
 	<h1>Caja {{ view.kwargs.pk }}</h1>
 	{% for item in items %}
 		{% if view.kwargs.pk == item.box %}
+		<div onclick="location.href='{% url 'item-detail' item.id %}';" >
 			<article class="media content-section">
 				{% if item.author %}
 					<img class="rounded-circle article-img" src="{{ item.author.profile.image.url }}">
@@ -21,6 +22,7 @@
 				<p class="article-content">Caja {{ item.box }}</p>
 				</div>
 			</article>
+		</div>
 		{% endif %}
 	{% endfor %}
 

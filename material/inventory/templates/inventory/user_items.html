@@ -32,6 +32,7 @@
 
 
 	{% for item in items %}
+		<div onclick="location.href='{% url 'item-detail' item.id %}';" >
 		<article class="media content-section">
 			<img class="rounded-circle article-img" src="{{ item.author.profile.image.url }}">
 			<div class="media-body">
@@ -43,6 +44,7 @@
 			<p class="article-content">Caja {{ item.box }}</p>
 			</div>
 		</article>
+		</div>
 	{% endfor %}
 	{% if is_paginated %}
 		

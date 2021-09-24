@@ -4,6 +4,7 @@
     {% regroup items by box as box_list %}
     
     {% for box in box_list %}
+    <div onclick="location.href='{% url 'box-detail' box.grouper %}';" >
         <article class="media content-section">
             <div class="media-body">
                 <h2><a class="article-title" href="{% url 'box-detail' box.grouper %}">Caja {{ box.grouper }}</a></h2>
@@ -14,6 +15,7 @@
                 {% endfor %}
             </div>
         </article>
+    </div>
     {% endfor %}
 
 
