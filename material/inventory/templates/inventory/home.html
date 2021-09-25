@@ -8,11 +8,11 @@
 	    <p>
 	    	<h6>Filtrar por nombre:</h6>
 	    	<p>			
-	    		<input class="custom-input-text" type="text" value="{{ filter }}" name="filter" style='width:79%'/>
-	    		<input class="btn custom-button" type="submit" value="Filtrar" style='width:20%'/>
+	    		<input class="custom-input-text nav-shadow" type="text" value="{{ filter }}" name="filter" style='width:79%'/>
+	    		<input class="btn custom-button nav-shadow" type="submit" value="Filtrar" style='width:20%'/>
 		</p>
 	    	<h6>Ordenar por:  </h6>
-	    	<select class="form-select custom-unselected-height custom-input-select" name="orderby" id="sort-select" style='width:79%'>
+	    	<select class="form-select custom-unselected-height custom-input-select nav-shadow" name="orderby" id="sort-select" style='width:79%'>
 				{% if orderby == 'box' %}
 					<option value="box">Caja</option>
 					<option value="item_name">Nombre</option>
@@ -27,14 +27,14 @@
 					<option value="-date_posted">Fecha</option>
 				{% endif %}
 		</select>
-	    	<input class="btn custom-button" type="submit" value="Reordenar" style='width:20%'/>
+	    	<input class="btn custom-button nav-shadow" type="submit" value="Reordenar" style='width:20%'/>
 	    </p>
 	</form>
 
 
 	{% for item in items %}
 		<div onclick="location.href='{% url 'item-detail' item.id %}';" >
-		<article class="media content-section">
+		<article class="media content-section nav-shadow">
 			{% if item.author %}
 				<img class="rounded-circle article-img" src="{{ item.author.profile.image.url }}">
 			{% else %}
@@ -58,21 +58,21 @@
 	{% if is_paginated %}
 		
 		{% if page_obj.has_previous %}
-			<div onclick="location.href='?page=1&orderby={{ orderby }}';" class="btn mb-4 custom-button">Primera</div>
-			<div onclick="location.href='?page={{ page_obj.previous_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">Anterior</div>
+			<div onclick="location.href='?page=1&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Primera</div>
+			<div onclick="location.href='?page={{ page_obj.previous_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Anterior</div>
 		{% endif %}
 
 		{% for num in page_obj.paginator.page_range %}
 			{% if page_obj.number == num %}
-				<div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">{{ num }}</div>
+				<div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">{{ num }}</div>
 			{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-				<div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">{{ num }}</div>
+				<div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">{{ num }}</div>
 			{% endif %}
 		{% endfor %}
 
 		{% if page_obj.has_next %}
-			<div onclick="location.href='?page={{ page_obj.next_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">Siguiente</div>
-			<div onclick="location.href='?page={{ page_obj.paginator.num_pages }}&orderby={{ orderby }}';" class="btn mb-4 custom-button">Última</div>
+			<div onclick="location.href='?page={{ page_obj.next_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Siguiente</div>
+			<div onclick="location.href='?page={{ page_obj.paginator.num_pages }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Última</div>
 		{% endif %}
 
 	{% endif %}

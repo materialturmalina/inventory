@@ -4,7 +4,7 @@
 	{% for item in items %}
 		{% if view.kwargs.pk == item.box %}
 		<div onclick="location.href='{% url 'item-detail' item.id %}';" >
-			<article class="media content-section">
+			<article class="media content-section nav-shadow">
 				{% if item.author %}
 					<img class="rounded-circle article-img" src="{{ item.author.profile.image.url }}">
 				{% else %}
@@ -31,21 +31,21 @@
 	{% if is_paginated %}
 		
 		{% if page_obj.has_previous %}
-			<a class="btn btn-outline-info mb-4" href="?page=1">Primera</a>
-			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+			<div onclick="location.href='?page=1&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Primera</div>
+			<div onclick="location.href='?page={{ page_obj.previous_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Anterior</div>
 		{% endif %}
 
 		{% for num in page_obj.paginator.page_range %}
 			{% if page_obj.number == num %}
-				<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+				<div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">{{ num }}</div>
 			{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-				<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+				<div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">{{ num }}</div>
 			{% endif %}
 		{% endfor %}
 
 		{% if page_obj.has_next %}
-			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+			<div onclick="location.href='?page={{ page_obj.next_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Siguiente</div>
+			<div onclick="location.href='?page={{ page_obj.paginator.num_pages }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Última</div>
 		{% endif %}
 
 	{% endif %}
