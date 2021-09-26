@@ -41,10 +41,10 @@
     <h5>Cajas de {{ current_piso }}:</h5>
 
     {% for box in box_list %}
-        <div onclick="location.href='{% url 'box-detail' box.grouper %}';" >
+        <div onclick="location.href='{% url 'box-detail' selected_piso box.grouper %}';" >
             <article class="media content-section nav-shadow">
                 <div class="media-body">
-                    <h2><a class="article-title" href="{% url 'box-detail' box.grouper %}">Caja {{ box.grouper }}</a></h2>
+                    <h2><a class="article-title" href="{% url 'box-detail' selected_piso box.grouper %}">Caja {{ box.grouper }}</a></h2>
                     {% for item in items %}
                         {% if item.box == box.grouper%}
                             <p class="article-content">{{ item.item_name }}</p>

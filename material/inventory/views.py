@@ -120,6 +120,12 @@ class BoxDetailView(ListView):
 	ordering = ['item_name']
 	template_name = 'inventory/box_detail_view.html'
 
+	def get_queryset(self):
+		self.this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == self.kwargs.get('piso') ]#to get ['Turmalina'] from "TU"
+		self.this_piso_name = self.this_piso_name[0]#to get "Turmalina" from ['Turmalina']
+		new_context = Item.objects.filter(piso=self.this_piso_name)
+		return new_context
+
 
 class ItemCreateView(LoginRequiredMixin, CreateView):
 	model = Item
