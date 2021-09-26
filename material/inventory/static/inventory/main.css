@@ -132,7 +132,9 @@ a.article-title:hover {
   border-radius: 10px;
 }
 
-
+.round-edges {
+  border-radius: 10px;
+}
 
 
 

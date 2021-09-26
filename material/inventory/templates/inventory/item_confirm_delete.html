@@ -1,6 +1,6 @@
 {% extends "inventory/base.html" %}
 {% block content%}
-	<div class="content-section">
+	<div class="content-section nav-shadow">
 		<form method="POST">
 			{% csrf_token %}
 			<fieldset class="form-group">
@@ -8,8 +8,8 @@
 				<h2>Estás seguro de que quieres eliminar el artículo "{{ object.item_name }}"?</h2>
 			</fieldset>
 			<div class="form-group">
-				<button class="btn btn-outline-danger" type="submit">Sí, Eliminar Artículo</button>
-				<a class="btn btn-outline-secondary" href="{% url 'item-detail' object.id %}">Cancelar</a>
+				<button class="btn btn-outline-danger round-edges" type="submit">Sí, Eliminar Artículo</button>
+				<a class="btn btn-outline-secondary round-edges" href="{% url 'item-detail' object.id %}">Cancelar</a>
 			</div>
 		</form>
 	</div>
