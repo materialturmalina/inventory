@@ -19,7 +19,7 @@
 					<small class="text-muted">{{ item.date_posted|date:"F d, Y" }}</small>
 				</div>
 				<h2><a class="article-title" href="{% url 'item-detail' item.id %}">{{ item.item_name }}</a></h2>
-				<p class="article-content">Caja {{ item.box }}</p>
+				<p class="article-content">{{ item.piso }}, Caja {{ item.box }}</p>
 				</div>
 			</article>
 		</div>

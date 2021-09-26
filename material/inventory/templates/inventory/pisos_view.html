@@ -1,0 +1,17 @@
+{% extends "inventory/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content%} 
+	<h1>Listado de Pisos</h1>
+	<p>¡Selecciona un piso para ver su inventario!</p>
+
+	{% for p in pisos_list %}
+		<div onclick="location.href='{% url 'piso-items' p.1 %}';" >
+		<article class="media content-section nav-shadow">
+			<h2><a class="article-title" href="{% url 'piso-items' p.1 %}">{{ p.0 }}</a></h2>
+		</article>
+		</div>
+	{% endfor %}
+
+
+{% endblock content%}

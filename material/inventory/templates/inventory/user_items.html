@@ -13,13 +13,21 @@
 	    	<select class="form-select custom-unselected-height custom-input-select nav-shadow" name="orderby" id="sort-select" style='width:79%'>
 				{% if orderby == 'box' %}
 					<option value="box">Caja</option>
+					<option value="piso">Piso</option>
 					<option value="item_name">Nombre</option>
 					<option value="-date_posted">Fecha</option>
 				{% elif orderby == '-date_posted' %}
 					<option value="-date_posted">Fecha</option>
+					<option value="piso">Piso</option>
 					<option value="box">Caja</option>
 					<option value="item_name">Nombre</option>
-	    			{% else %}
+				{% elif orderby == 'item_name' %}
+					<option value="item_name">Nombre</option>
+					<option value="piso">Piso</option>
+					<option value="box">Caja</option>
+					<option value="-date_posted">Fecha</option>
+	    		{% else %}
+					<option value="piso">Piso</option>
 					<option value="item_name">Nombre</option>
 					<option value="box">Caja</option>
 					<option value="-date_posted">Fecha</option>
@@ -42,7 +50,7 @@
 				<small class="text-muted">{{ item.date_posted|date:"F d, Y" }}</small>
 			</div>
 			<h2><a class="article-title" href="{% url 'item-detail' item.id %}">{{ item.item_name }}</a></h2>
-			<p class="article-content">Caja {{ item.box }}</p>
+			<p class="article-content">{{ item.piso }}, Caja {{ item.box }}</p>
 			</div>
 		</article>
 		</div>

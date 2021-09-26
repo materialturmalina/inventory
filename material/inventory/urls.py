@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ItemListView, UserItemListView, ItemDetailView, ItemCreateView, ItemUpdateView, ItemDeleteView, BoxListView, BoxDetailView
+from .views import ItemListView, UserItemListView, ItemDetailView, ItemCreateView, ItemUpdateView, ItemDeleteView, BoxListView, BoxDetailView, PisoItemListView
 from . import views
 
 urlpatterns = [
@@ -12,5 +12,7 @@ urlpatterns = [
     path('item/<int:pk>/update/', ItemUpdateView.as_view(), name='item-update'),
     path('item/<int:pk>/delete/', ItemDeleteView.as_view(), name='item-delete'),
     path('info/', views.info, name='inventory-info'),
+    path('pisos/', views.pisos, name='pisos-list'),
+    path('piso/<str:piso>/', PisoItemListView.as_view(), name='piso-items'),
 
 ]

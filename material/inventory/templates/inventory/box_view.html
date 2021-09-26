@@ -1,6 +1,7 @@
 {% extends "inventory/base.html" %}
 {% block content%}
     <h1>Listado de Cajas</h1>
+    <p>¡OJO! Aquí están los artículos de TODOS los pisos, mezclados. En futuras actualizaciones esto se solucionará.</p>
     {% regroup items by box as box_list %}
     
     {% for box in box_list %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Item
+from .models import Item, PISOS
 from django.contrib.auth.models import User
 
 
@@ -35,6 +35,33 @@ class ItemListView(ListView):
 
 	def get_context_data(self, **kwargs):
 		context = super(ItemListView, self).get_context_data(**kwargs)
+		context['filter'] = self.request.GET.get('filter', '')
+		context['orderby'] = self.request.GET.get('orderby', 'item_name')
+		return context
+
+class PisoItemListView(ListView):
+	model = Item
+	template_name = 'inventory/piso_items.html'
+	context_object_name = 'items'
+	paginate_by = 5
+
+	def get_queryset(self):
+		this_piso = self.kwargs.get('piso')
+
+		this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == this_piso ]#to get ['Turmalina'] from "TU"
+		this_piso_name = this_piso_name[0]#to get "Turmalina" from ['Turmalina']
+
+		new_context = Item.objects.filter(piso=this_piso_name)
+		filter_val = self.request.GET.get('filter', '')
+		order = self.request.GET.get('orderby', 'item_name')
+		if filter_val:
+			new_context = new_context.filter(item_name__icontains=filter_val, ).order_by(order)
+		else:
+			new_context = new_context.order_by(order)
+		return new_context
+
+	def get_context_data(self, **kwargs):
+		context = super(PisoItemListView, self).get_context_data(**kwargs)
 		context['filter'] = self.request.GET.get('filter', '')
 		context['orderby'] = self.request.GET.get('orderby', 'item_name')
 		return context
@@ -85,7 +112,7 @@ class BoxDetailView(ListView):
 
 class ItemCreateView(LoginRequiredMixin, CreateView):
 	model = Item
-	fields = ['item_name', 'box']
+	fields = ['item_name', 'piso', 'box',]
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
@@ -93,7 +120,7 @@ class ItemCreateView(LoginRequiredMixin, CreateView):
 
 class ItemUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 	model = Item
-	fields = ['item_name', 'box']
+	fields = ['item_name', 'piso', 'box']
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
@@ -116,3 +143,9 @@ class ItemDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 			return True
 		else:
 			return False
+
+def pisos(request):
+    context= {
+    	'pisos_list':PISOS
+    }
+    return render(request, 'inventory/pisos_view.html', context)

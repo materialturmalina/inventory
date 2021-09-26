@@ -68,8 +68,9 @@
 	        <h3>Panel de navegación</h3>
 	        <p class='text-muted'>A continuación puedes ver algunos links de interés:
 	          <ul class="list-group">
-	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-list' %}">Listado de Cajas</a></li>
-	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'inventory-home' %}">Listado de Artículos</a></li>
+   	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'pisos-list' %}">Pisos</a></li>
+	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-list' %}">Cajas</a></li>
+	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'inventory-home' %}">Artículos</a></li>
 	            {% if user.is_authenticated %}
 	            	<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'item-create' %}">Añadir un Artículo</a></li>
 	          		<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'logout' %}">Cerrar Sesión</a></li>
