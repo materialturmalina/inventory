@@ -1,22 +1,60 @@
 {% extends "inventory/base.html" %}
 {% block content%}
     <h1>Listado de Cajas</h1>
-    <p>¡OJO! Aquí están los artículos de TODOS los pisos, mezclados. En futuras actualizaciones esto se solucionará.</p>
     {% regroup items by box as box_list %}
-    
+    {% firstof "Turmalina" as current_piso %}
+
+    <form method="get" action="{% url 'box-list' %}">
+        <p>
+            <h6>Selecciona el Piso:</h6>
+            <select class="form-select custom-unselected-height custom-input-select nav-shadow" name="selected_piso" id="sort-select" style='width:79%'>
+                {% if selected_piso == 'TU' %}
+                    <option value="TU">Turmalina</option>
+                    <option value="TB">Tomás Bretón</option>
+                    <option value="AF2">Alejandro Ferrant 2</option>
+                    <option value="AF3">Alejandro Ferrant 3</option>
+                    {% firstof "Turmalina" as current_piso %}
+                {% elif selected_piso == 'TB' %}
+                    <option value="TB">Tomás Bretón</option>
+                    <option value="TU">Turmalina</option>
+                    <option value="AF2">Alejandro Ferrant 2</option>
+                    <option value="AF3">Alejandro Ferrant 3</option>
+                    {% firstof "Tomás Bretón" as current_piso %}
+                {% elif selected_piso == 'AF2' %}
+                    <option value="AF2">Alejandro Ferrant 2</option>
+                    <option value="TU">Turmalina</option>
+                    <option value="TB">Tomás Bretón</option>
+                    <option value="AF3">Alejandro Ferrant 3</option>
+                    {% firstof "Alejandro Ferrant 2" as current_piso %}
+                {% else %}
+                    <option value="AF3">Alejandro Ferrant 3</option>
+                    <option value="TU">Turmalina</option>
+                    <option value="TB">Tomás Bretón</option>
+                    <option value="AF2">Alejandro Ferrant 2</option>
+                    {% firstof "Alejandro Ferrant 3" as current_piso %}
+                {% endif %}
+        </select>
+            <input class="btn custom-button nav-shadow" type="submit" value="Seleccionar" style='width:20%'/>
+        </p>
+    </form>
+
+    <h5>Cajas de {{ current_piso }}:</h5>
+
     {% for box in box_list %}
-    <div onclick="location.href='{% url 'box-detail' box.grouper %}';" >
-        <article class="media content-section nav-shadow">
-            <div class="media-body">
-                <h2><a class="article-title" href="{% url 'box-detail' box.grouper %}">Caja {{ box.grouper }}</a></h2>
-                {% for item in items %}
-                    {% if item.box == box.grouper %}
-                        <p class="article-content">{{ item.item_name }}</p>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </article>
-    </div>
+        <div onclick="location.href='{% url 'box-detail' box.grouper %}';" >
+            <article class="media content-section nav-shadow">
+                <div class="media-body">
+                    <h2><a class="article-title" href="{% url 'box-detail' box.grouper %}">Caja {{ box.grouper }}</a></h2>
+                    {% for item in items %}
+                        {% if item.box == box.grouper%}
+                            <p class="article-content">{{ item.item_name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+
+
     {% endfor %}
 
     {% comment %}

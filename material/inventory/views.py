@@ -100,6 +100,17 @@ class BoxListView(ListView):
 	ordering = ['box']
 	#paginate_by = 5
 
+	def get_queryset(self):
+		this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == self.request.GET.get('selected_piso', 'TU') ]#to get ['Turmalina'] from "TU"
+		this_piso_name = this_piso_name[0]#to get "Turmalina" from ['Turmalina']
+		new_context = Item.objects.filter(piso=this_piso_name)
+		return new_context
+
+	def get_context_data(self, **kwargs):
+		context = super(BoxListView, self).get_context_data(**kwargs)
+		context['selected_piso'] = self.request.GET.get('selected_piso', 'TU')
+		return context
+
 class ItemDetailView(DetailView):
 	model = Item
 
