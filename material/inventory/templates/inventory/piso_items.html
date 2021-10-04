@@ -2,7 +2,7 @@
 {% block content%}
 <h1 class="mb-3">Artículos de {{ view.kwargs.piso}}</h1>
 
-	<form method="get" action="{% url 'inventory-home' %}">
+	<form method="get" action="{% url 'piso-items' view.kwargs.piso %}">
 	    <p>
 	    	<h6>Filtrar por nombre:</h6>
 	    	<p>			
