@@ -18,7 +18,7 @@
 		  {% endif %}
 		</div>
 		<h2 class="article-title">{{ object.item_name }}</h2>
-		<p class="article-content">{{ item.piso }}, Caja {{ object.box }}</p>
+		<p class="article-content">Caja {{ item.box.box_number }}: {{ item.box.box_name }}, {{ item.box.piso }}</p>
 		</div>
 	</article>
 {% endblock content%}

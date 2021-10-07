@@ -1,0 +1,17 @@
+{% extends "inventory/base.html" %}
+{% block content%}
+	<div class="content-section nav-shadow">
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Eliminar Artículo</legend>
+				<h2>Estás seguro de que quieres eliminar la caja "Caja {{object.box_number}}: {{ object.box_name }}"?</h2>
+				<h6>Si lo haces, todos los artículos de esta caja también serán eliminados.</h6>
+			</fieldset>
+			<div class="form-group">
+				<button class="btn btn-outline-danger round-edges" type="submit">Sí, Eliminar Caja</button>
+				<a class="btn btn-outline-secondary round-edges" href="{% url 'item-detail' object.id %}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+{% endblock content%}

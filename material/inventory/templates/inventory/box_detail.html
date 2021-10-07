@@ -1,41 +1,38 @@
 {% extends "inventory/base.html" %}
 {% block content%}
-<h1 class="mb-3">Artículos de {{ view.this_piso_name }}</h1>
+	<h1>Caja {{view.this_box_number}}: {{ view.this_box.box_name }} ({{ view.this_piso_name }})</h1>
 
-	<form method="get" action="{% url 'piso-items' view.kwargs.piso %}">
-	    <p>
-	    	<h6>Filtrar por nombre:</h6>
-	    	<p>			
-	    		<input class="custom-input-text nav-shadow" type="text" value="{{ filter }}" name="filter" style='width:79%'/>
-	    		<input class="btn custom-button nav-shadow" type="submit" value="Filtrar" style='width:20%'/>
-		</p>
-	    	<h6>Ordenar por:  </h6>
-	    	<select class="form-select custom-unselected-height custom-input-select nav-shadow" name="orderby" id="sort-select" style='width:79%'>
-				{% if orderby == 'box' %}
-					<option value="box">Caja</option>
-					<option value="item_name">Nombre</option>
-					<option value="-date_posted">Fecha</option>
-				{% elif orderby == '-date_posted' %}
-					<option value="-date_posted">Fecha</option>
-					<option value="box">Caja</option>
-					<option value="item_name">Nombre</option>
-				{% elif orderby == 'item_name' %}
-					<option value="item_name">Nombre</option>
-					<option value="box">Caja</option>
-					<option value="-date_posted">Fecha</option>
-	    		{% else %}
+	{% comment %}
+	<article class="media content-section nav-shadow">
+		{% if view.this_box.author %}
+			<img class="rounded-circle article-img" src="{{ view.this_box.author.profile.image.url }}">
+		{% endif %}
+		<div class="media-body">
+		<div class="article-metadata">
+			{% if view.this_box.author %}
+				<a class="mr-2" href="{% url 'user-items' view.this_box.author.username %}">{{ view.this_box.author }}</a>
+			{% endif %}
+			<small class="text-muted">{{ view.this_box.date_created|date:"F d, Y" }}</small>
+		  {% if view.this_box.author == user %}
+		  	<div>
+		  		<a class="btn btn-secondary btn-sm mt-1 mb-1 round-edges" href="{% url 'box-update' view.this_box.id %}">Actualizar</a>
+		  		<a class="btn btn-danger btn-sm mt-1 mb-1 round-edges" href="{% url 'box-delete' view.this_box.id %}">Eliminar</a>
+		  	</div>
+		  {% endif %}
+		<h2 class="article-title">Caja {{view.this_box_number}}: {{ view.this_box.box_name }} ({{ view.this_piso_name }})</h2>
+		</div>
+		</div>
+	</article>
+	{% endcomment %}
 
-				{% endif %}
-		</select>
-	    	<input class="btn custom-button nav-shadow" type="submit" value="Reordenar" style='width:20%'/>
-	    </p>
-	</form>
-
-
-
-
+	{% if view.this_box.author == user %}
+	<div>
+		<a class="btn btn-secondary btn-sm mt-1 mb-1 round-edges" href="{% url 'box-update' view.this_box.id %}">Actualizar</a>
+		<a class="btn btn-danger btn-sm mt-1 mb-1 round-edges" href="{% url 'box-delete' view.this_box.id %}">Eliminar</a>
+	</div>
+	{% endif %}
+	
 	{% for item in items %}
-	{% if item.box.piso == view.this_piso_name %}
 		<div onclick="location.href='{% url 'item-detail' item.id %}';" >
 		<article class="media content-section nav-shadow">
 			<img class="rounded-circle article-img" src="{{ item.author.profile.image.url }}">
@@ -45,14 +42,11 @@
 				<small class="text-muted">{{ item.date_posted|date:"F d, Y" }}</small>
 			</div>
 			<h2><a class="article-title" href="{% url 'item-detail' item.id %}">{{ item.item_name }}</a></h2>
-			<p class="article-content">Caja {{ item.box.box_number }}: {{ item.box.box_name }}, {{ item.box.piso }}</p>
+			<p class="article-content">Caja {{view.this_box_number}}: {{ view.this_box.box_name }}, {{ view.this_piso_name }}</p>
 			</div>
 		</article>
 		</div>
-	{% endif %}
 	{% endfor %}
-
-	
 	{% if is_paginated %}
 		
 		{% if page_obj.has_previous %}
@@ -74,4 +68,8 @@
 		{% endif %}
 
 	{% endif %}
+
+
+
+	
 {% endblock content%}
