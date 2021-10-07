@@ -1,0 +1,75 @@
+{% extends "inventory/base.html" %}
+{% block content%}
+    <h1>Listado de Cajas</h1>
+
+    <form method="get" action="{% url 'box-list' %}">
+        <p>
+            <h6>Selecciona el Piso:</h6>
+            <select class="form-select custom-unselected-height custom-input-select nav-shadow" name="selected_piso" id="sort-select" style='width:79%'>
+                {% if selected_piso == 'TU' %}
+                    <option value="TU">Turmalina</option>
+                    <option value="TB">Tomás Bretón</option>
+                    <option value="AF2">Alejandro Ferrant 2</option>
+                    <option value="AF3">Alejandro Ferrant 3</option>
+                {% elif selected_piso == 'TB' %}
+                    <option value="TB">Tomás Bretón</option>
+                    <option value="TU">Turmalina</option>
+                    <option value="AF2">Alejandro Ferrant 2</option>
+                    <option value="AF3">Alejandro Ferrant 3</option>
+                {% elif selected_piso == 'AF2' %}
+                    <option value="AF2">Alejandro Ferrant 2</option>
+                    <option value="TU">Turmalina</option>
+                    <option value="TB">Tomás Bretón</option>
+                    <option value="AF3">Alejandro Ferrant 3</option>
+                {% else %}
+                    <option value="AF3">Alejandro Ferrant 3</option>
+                    <option value="TU">Turmalina</option>
+                    <option value="TB">Tomás Bretón</option>
+                    <option value="AF2">Alejandro Ferrant 2</option>
+                {% endif %}
+        </select>
+            <input class="btn custom-button nav-shadow" type="submit" value="Seleccionar" style='width:20%'/>
+        </p>
+    </form>
+
+    <h5>Cajas de {{ view.this_piso_name }}:</h5>
+
+    {% for box in boxes %}
+    {% if box.piso == view.this_piso_name %}
+        <div onclick="location.href='{% url 'box-detail' selected_piso box.box_number %}';" >
+            <article class="media content-section nav-shadow">
+                <div class="media-body">
+                    <h2><a class="article-title" href="{% url 'box-detail' selected_piso box.box_number %}">Caja {{ box.box_number }}: {{ box.box_name }}</a></h2>
+                    {% for item in items %}
+                    {% if item.box.box_number == box.box_number and item.box.piso == box.piso %}
+                        <p><a class="article-title" href="{% url 'item-detail' item.id %}">{{ item.item_name }}</a></p>
+                    {% endif %}
+                    {% endfor %}                
+                </div>
+            </article>
+        </div>
+    {% endif %}
+    {% endfor %}
+
+    {% comment %}
+    {% if is_paginated %}
+        
+        {% if page_obj.has_previous %}
+            <div onclick="location.href='?page=1&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Primera</div>
+            <div onclick="location.href='?page={{ page_obj.previous_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Anterior</div>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">{{ num }}</div>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <div onclick="location.href='?page={{ num }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">{{ num }}</div>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <div onclick="location.href='?page={{ page_obj.next_page_number }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Siguiente</div>
+            <div onclick="location.href='?page={{ page_obj.paginator.num_pages }}&orderby={{ orderby }}';" class="btn mb-4 custom-button nav-shadow">Última</div>
+        {% endif %}
+    {% endcomment %}
+{% endblock content%}

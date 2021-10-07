@@ -37,6 +37,7 @@
 	        <!-- Navbar Right Side -->
 	        <div class="navbar-nav">
 	        	{% if user.is_authenticated %}
+					<a class="nav-item nav-link" href="{% url 'box-create' %}">Añadir Caja</a>
 	          		<a class="nav-item nav-link" href="{% url 'item-create' %}">Añadir Artículo</a>
 	          		<a class="nav-item nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
 	          		<a class="nav-item nav-link" href="{% url 'profile' %}">Mi Perfil</a>
@@ -72,7 +73,8 @@
 	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-list' %}">Cajas</a></li>
 	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'inventory-home' %}">Artículos</a></li>
 	            {% if user.is_authenticated %}
-	            	<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'item-create' %}">Añadir un Artículo</a></li>
+					<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-create' %}">Añadir una Caja</a></li>
+					<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'item-create' %}">Añadir un Artículo</a></li>
 	          		<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'logout' %}">Cerrar Sesión</a></li>
 	          		<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'profile' %}">Mi Perfil</a></li>
 	          	{% else %}
