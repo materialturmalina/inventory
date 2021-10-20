@@ -1,0 +1,23 @@
+{% load static %}
+
+<h1>Items API</h1>
+
+{% block content%} 
+{% for item in items %}
+<div>
+{% if item.author %}
+<p>Author: {{ item.author }}</p>
+{% else %}
+<p>Author: None</p>
+{% endif %}
+<p>Date Posted: {{ item.date_posted|date:"F d, Y" }}</p>
+
+<p>Item Name: {{ item.item_name }}</p>
+
+<p>Box: {{ item.box.box_number }}: {{ item.box.box_name }}, {{ item.box.piso}}</p>
+
+</div>
+
+
+{% endfor %}
+{% endblock content%}
