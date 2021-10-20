@@ -208,6 +208,16 @@ class BoxListView(ListView):
 		context['items'] = Item.objects.all()
 		return context
 
+################### TESTS #####################
+
+
+class ApiItems(ListView):
+	model = Item
+	template_name = 'inventory/api_items.html'
+	context_object_name = 'items'
+
+
+
 ##########################################################################
 
 class BoxListView1(ListView):

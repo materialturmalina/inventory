@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'inventory.apps.InventoryConfig',
     'users.apps.UsersConfig',
+    'rest_framework',
+    'api.apps.ApiConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
