@@ -20,6 +20,5 @@ urlpatterns = [
     path('box/<str:piso>/<int:number>/', BoxDetailView.as_view(), name='box-detail'),
     path('home/box-list/', BoxListView.as_view(), name='box-list'),
     
-
     #path('api/items/', ApiItems.as_view(), name='api-items'),#this is just a test, can be removed
 ]
