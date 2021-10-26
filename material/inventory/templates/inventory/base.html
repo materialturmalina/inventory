@@ -31,7 +31,7 @@
 	      <div class="collapse navbar-collapse" id="navbarToggle">
 	        <div class="navbar-nav mr-auto">
 	          <a class="nav-item nav-link" href="{% url 'inventory-home' %}">Inicio</a>
-	          <a class="nav-item nav-link" href="{% url 'box-list-view' %}">Cajas</a>
+	          <a class="nav-item nav-link" href="{% url 'box-list' %}">Cajas</a>
 	          <a class="nav-item nav-link" href="{% url 'inventory-info' %}">Información</a>
 	        </div>
 	        <!-- Navbar Right Side -->
@@ -70,7 +70,7 @@
 	        <p class='text-muted'>A continuación puedes ver algunos links de interés:
 	          <ul class="list-group">
    	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'pisos-list' %}">Pisos</a></li>
-	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-list-view' %}">Cajas</a></li>
+	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-list' %}">Cajas</a></li>
 	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'inventory-home' %}">Artículos</a></li>
 	            {% if user.is_authenticated %}
 					<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-create' %}">Añadir una Caja</a></li>
