@@ -9,10 +9,12 @@ from .serializers import ItemSerializer, BoxSerializer#, UserSerializer
 class ItemsViewSet(viewsets.ModelViewSet):
 	queryset = Item.objects.all()
 	serializer_class = ItemSerializer
+	http_method_names = ['get']
 
 class BoxViewSet(viewsets.ModelViewSet):
 	queryset = Box.objects.all()
 	serializer_class = BoxSerializer
+	http_method_names = ['get']
 
 '''
 class UserViewSet(viewsets.ModelViewSet):
