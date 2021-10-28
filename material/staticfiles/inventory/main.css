@@ -4,6 +4,7 @@ body {
   margin-top: 5rem;
 }
 
+
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
@@ -13,7 +14,7 @@ ul {
 }
 
 .nav-shadow {
-  box-shadow: 0 4px 10px 0 rgba(0,0,0,.2);
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,.2);
 }
 
 .bg-steel {
@@ -131,7 +132,9 @@ a.article-title:hover {
   border-radius: 10px;
 }
 
-
+.round-edges {
+  border-radius: 10px;
+}
 
 
 
