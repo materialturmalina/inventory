@@ -35,7 +35,7 @@
 
 
 	{% for item in items %}
-	{% if item.box.piso == view.this_piso_name %}
+	
 		<div onclick="location.href='{% url 'item-detail' item.id %}';" >
 		<article class="media content-section nav-shadow">
 			<img class="rounded-circle article-img" src="{{ item.author.profile.image.url }}">
@@ -49,7 +49,7 @@
 			</div>
 		</article>
 		</div>
-	{% endif %}
+	
 	{% endfor %}
 
 	

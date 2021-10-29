@@ -54,12 +54,16 @@ class PisoItemListView(ListView):
 		self.this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == this_piso ]#to get ['Turmalina'] from "TU"
 		self.this_piso_name = self.this_piso_name[0]#to get "Turmalina" from ['Turmalina']
 
+		boxes = Box.objects.filter(piso=self.this_piso_name)
+		box_names = [box.box_name for box in boxes]
+		new_context = Item.objects.filter(box__box_name__in=box_names)
+
 		filter_val = self.request.GET.get('filter', '')
 		order = self.request.GET.get('orderby', 'item_name')
 		if filter_val:
-			new_context = Item.objects.filter(item_name__icontains=filter_val, ).order_by(order)
+			new_context = new_context.filter(item_name__icontains=filter_val, ).order_by(order)
 		else:
-			new_context = Item.objects.order_by(order)
+			new_context = new_context.order_by(order)
 		return new_context
 
 	def get_context_data(self, **kwargs):
