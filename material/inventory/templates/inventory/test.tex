@@ -1,0 +1,20 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}% NOT OT1
+\makeatletter
+\renewcommand*{\verbatim@font}{}
+\makeatother
+
+\begin{document}
+
+{% for item in items %}
+\section*{\verb|{{- item.item_name -}}|}
+\begin{itemize}
+    \item \verb|{{- item.item_box -}}|
+    \item \verb|{{- item.item_date_posted -}}|
+    \item \verb|{{- item.item_author -}}|
+\end{itemize}
+{% endfor %}
+
+
+\end{document}

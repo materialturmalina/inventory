@@ -3,6 +3,23 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Item, PISOS, Box
 from django.contrib.auth.models import User
+from django_tex.shortcuts import render_to_pdf
+
+def inventory_to_pdf(request):
+    template_name = 'inventory/test.tex'
+    items = Item.objects.all()
+    item_list = []
+    for item in items:
+    	item_dict = {
+    		'item_name': item.item_name,
+    		'item_box': item.box,
+    		'item_date_posted': item.date_posted,
+    		'item_author': item.author
+    	}
+    	item_list.append(item_dict) 
+
+    context = {'items': item_list}
+    return render_to_pdf(request, template_name, context, filename='test.pdf')
 
 
 #from django.db.models import CharField

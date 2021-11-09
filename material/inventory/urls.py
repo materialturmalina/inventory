@@ -10,6 +10,7 @@ urlpatterns = [
     path('user/<str:username>/', UserItemListView.as_view(), name='user-items'),
     path('item/<int:pk>/', ItemDetailView.as_view(), name='item-detail'),
     path('info/', views.info, name='inventory-info'),
+    path('exportpdf/', views.inventory_to_pdf, name='inventory-to-pdf'),
     path('pisos/', views.pisos, name='pisos-list'),
     path('piso/<str:piso>/', PisoItemListView.as_view(), name='piso-items'),
 
