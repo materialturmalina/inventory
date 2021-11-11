@@ -7,6 +7,24 @@
 
 \begin{document}
 
+
+{% for box in boxes %}
+
+\section*{ {{- box -}} }
+
+\begin{itemize}
+{% for item in items %}
+{% if item.item_box == box %}
+    \item {{ item.item_name }}
+{% endif %}
+{% endfor %}
+\end{itemize}
+
+
+{% endfor %}
+
+
+\iffalse
 {% for item in items %}
 \section*{ {{- item.item_name -}} }
 \begin{itemize}
@@ -15,6 +33,6 @@
     \item \verb|{{- item.item_author -}}|
 \end{itemize}
 {% endfor %}
-
+\fi
 
 \end{document}

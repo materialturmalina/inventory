@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Item, PISOS, Box
@@ -6,8 +6,16 @@ from django.contrib.auth.models import User
 from django_tex.shortcuts import render_to_pdf
 
 def inventory_to_pdf(request):
-    template_name = 'inventory/test.tex'
-    items = Item.objects.all()
+    try:
+        piso = request.GET.get('piso')
+    except:
+        piso = 'TU'
+    this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == piso ]#to get ['Turmalina'] from "TU"
+    this_piso_name = this_piso_name[0]#to get "Turmalina" from ['Turmalina']
+
+    template_name = 'inventory/tex/test.tex'
+    piso_boxes = get_list_or_404(Box, piso=this_piso_name)
+    items = Item.objects.filter(box__in=piso_boxes, ).order_by('box').all()
     item_list = []
     for item in items:
     	item_dict = {
@@ -17,8 +25,13 @@ def inventory_to_pdf(request):
     		'item_author': item.author
     	}
     	item_list.append(item_dict) 
+    box_list = []
+    
+    for item in item_list:
+    	if item['item_box'] not in box_list:
+    		box_list.append(item['item_box'])
 
-    context = {'items': item_list}
+    context = {'items': item_list, 'boxes':box_list}
     return render_to_pdf(request, template_name, context, filename='test.pdf')
 
 

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}% NOT OT1
+\usepackage{lmodern}
+\makeatletter
+\renewcommand*{\verbatim@font}{}
+\makeatother
+
+\usepackage{enumitem}
+\usepackage[skins,breakable]{tcolorbox}
+%Page Margins:
+\usepackage[a4paper, total={6in, 10in}]{geometry}
+\usepackage{multicol}
+
+\begin{document}
+
+
+
+{\sf\hspace{-1.6em}\huge{}Lists}
+% Poster title
+{\sf\vspace{0.5em}\\
+Marta Stekwlkflkwemf
+\vspace{0.1em}\\
+\small{Department of and Biophysics, PAS, Pawinskiego 5a, 02-106 Warsaw, Poland
+\vspace{0.2em}\\
+martasd@ibb.waw.pl}
+
+\newtcolorbox{mybox}[1]{boxrule=0.5mm,colframe=black,colback=gray!30,fontupper=\color{black},fonttitle={\color{white}},title=\protect\section*{#1}}
+
+\begin{multicols}{2}
+
+
+{% for box in boxes %}
+
+\begin{mybox}{ {{- box -}} }
+  \begin{enumerate}
+    {% for item in items %}
+    {% if item.item_box == box %}
+    \item {{ item.item_name }}
+    {% endif %}
+    {% endfor %}
+  \end{enumerate}
+\end{mybox}
+
+{% endfor %}
+
+
+\end{multicols}
+\end{document}
