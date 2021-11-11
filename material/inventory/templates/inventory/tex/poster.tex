@@ -5,26 +5,35 @@
 \renewcommand*{\verbatim@font}{}
 \makeatother
 
+
 \usepackage{enumitem}
 \usepackage[skins,breakable]{tcolorbox}
 %Page Margins:
-\usepackage[a4paper, total={6in, 10in}]{geometry}
+\usepackage[a4paper, total={6.5in, 10in}]{geometry}
 \usepackage{multicol}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{graphicx}
+{% graphicspath %}
+
 
 \begin{document}
 
 
 
-{\sf\hspace{-1.6em}\huge{}Lists}
+{\hspace{-1.6em}\huge{}Material de {{ piso -}}}
 % Poster title
-{\sf\vspace{0.5em}\\
-Marta Stekwlkflkwemf
+{\vspace{0.5em}\\
+Material Turmalina
 \vspace{0.1em}\\
-\small{Department of and Biophysics, PAS, Pawinskiego 5a, 02-106 Warsaw, Poland
+\small{Guarda el orden y el orden te guardará ;-)
 \vspace{0.2em}\\
-martasd@ibb.waw.pl}
+material.turmalina@gmail.com}
 
-\newtcolorbox{mybox}[1]{boxrule=0.5mm,colframe=black,colback=gray!30,fontupper=\color{black},fonttitle={\color{white}},title=\protect\section*{#1}}
+\vspace{-1cm}\hspace{14.4cm}\includegraphics[width=0.1\textwidth]{logo.png}
+
+\newtcolorbox{mybox}[1]{breakable,boxrule=0.5mm,colframe=black,colback=gray!30,fontupper=\color{black},fonttitle=\color{white},title=\protect\section*{ #1}}
 
 \begin{multicols}{2}
 

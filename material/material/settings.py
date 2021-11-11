@@ -61,6 +61,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'material.urls'
 
+LATEX_INTERPRETER = 'pdflatex'
+
+LATEX_GRAPHICSPATH = [str(BASE_DIR / 'inventory/templates/inventory/tex'),]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

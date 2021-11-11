@@ -5,36 +5,6 @@ from .models import Item, PISOS, Box
 from django.contrib.auth.models import User
 from django_tex.shortcuts import render_to_pdf
 
-def inventory_to_pdf(request):
-    try:
-        piso = request.GET.get('piso')
-    except:
-        piso = 'TU'
-    this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == piso ]#to get ['Turmalina'] from "TU"
-    this_piso_name = this_piso_name[0]#to get "Turmalina" from ['Turmalina']
-
-    template_name = 'inventory/tex/test.tex'
-    piso_boxes = get_list_or_404(Box, piso=this_piso_name)
-    items = Item.objects.filter(box__in=piso_boxes, ).order_by('box').all()
-    item_list = []
-    for item in items:
-    	item_dict = {
-    		'item_name': item.item_name,
-    		'item_box': item.box,
-    		'item_date_posted': item.date_posted,
-    		'item_author': item.author
-    	}
-    	item_list.append(item_dict) 
-    box_list = []
-    
-    for item in item_list:
-    	if item['item_box'] not in box_list:
-    		box_list.append(item['item_box'])
-
-    context = {'items': item_list, 'boxes':box_list}
-    return render_to_pdf(request, template_name, context, filename='test.pdf')
-
-
 #from django.db.models import CharField
 #from django.db.models.functions import Lower
 #CharField.register_lookup(Lower)
@@ -241,6 +211,36 @@ class BoxListView(ListView):
 		context['selected_piso'] = self.request.GET.get('selected_piso', 'TU')
 		context['items'] = Item.objects.all()
 		return context
+
+def inventory_to_pdf(request):
+    try:
+        piso = request.GET.get('piso')
+    except:
+        piso = 'TU'
+    this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == piso ]#to get ['Turmalina'] from "TU"
+    this_piso_name = this_piso_name[0]#to get "Turmalina" from ['Turmalina']
+
+    template_name = 'inventory/tex/poster.tex'
+    piso_boxes = get_list_or_404(Box, piso=this_piso_name)
+    items = Item.objects.filter(box__in=piso_boxes, ).order_by('box').all()
+    item_list = []
+    for item in items:
+    	item_dict = {
+    		'item_name': item.item_name,
+    		'item_box': str(item.box).replace("(" + this_piso_name + ")", ""),
+    		'item_date_posted': item.date_posted,
+    		'item_author': item.author
+    	}
+    	item_list.append(item_dict) 
+    box_list = []
+    
+    for item in item_list:
+    	if item['item_box'] not in box_list:
+    		box_list.append(item['item_box'])
+
+    context = {'items': item_list, 'boxes':box_list, 'piso': this_piso_name}
+    return render_to_pdf(request, template_name, context, filename='test.pdf')
+
 
 ################### TESTS #####################
 
