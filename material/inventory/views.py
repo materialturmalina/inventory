@@ -55,8 +55,7 @@ class PisoItemListView(ListView):
 		self.this_piso_name = self.this_piso_name[0]#to get "Turmalina" from ['Turmalina']
 
 		boxes = Box.objects.filter(piso=self.this_piso_name)
-		box_names = [box.box_name for box in boxes]
-		new_context = Item.objects.filter(box__box_name__in=box_names)
+		new_context = Item.objects.filter(box__in=boxes)
 
 		filter_val = self.request.GET.get('filter', '')
 		order = self.request.GET.get('orderby', 'item_name')
@@ -239,6 +238,10 @@ def inventory_to_pdf(request, piso):
     context = {'items': item_list, 'boxes':box_list, 'piso': this_piso_name}
     pdfname = "Material de " + this_piso_name + ".pdf"
     return render_to_pdf(request, template_name, context, filename=pdfname)
+
+
+
+
 
 
 ################### TESTS #####################
