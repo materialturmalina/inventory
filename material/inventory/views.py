@@ -237,7 +237,8 @@ def inventory_to_pdf(request, piso):
     		box_list.append(item['item_box'])
 
     context = {'items': item_list, 'boxes':box_list, 'piso': this_piso_name}
-    return render_to_pdf(request, template_name, context, filename='test.pdf')
+    pdfname = "Material de " + this_piso_name + ".pdf"
+    return render_to_pdf(request, template_name, context, filename=pdfname)
 
 
 ################### TESTS #####################
