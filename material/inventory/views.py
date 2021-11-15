@@ -49,9 +49,9 @@ class PisoItemListView(ListView):
 	paginate_by = 5
 
 	def get_queryset(self):
-		this_piso = self.kwargs.get('piso')
+		self.this_piso = self.kwargs.get('piso')
 
-		self.this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == this_piso ]#to get ['Turmalina'] from "TU"
+		self.this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == self.this_piso ]#to get ['Turmalina'] from "TU"
 		self.this_piso_name = self.this_piso_name[0]#to get "Turmalina" from ['Turmalina']
 
 		boxes = Box.objects.filter(piso=self.this_piso_name)
@@ -212,14 +212,12 @@ class BoxListView(ListView):
 		context['items'] = Item.objects.all()
 		return context
 
-def inventory_to_pdf(request):
-    try:
-        piso = request.GET.get('piso')
-    except:
-        piso = 'TU'
+def inventory_to_pdf(request, piso):
     this_piso_name = [ piso_name[0] for piso_name in PISOS if piso_name[1] == piso ]#to get ['Turmalina'] from "TU"
-    this_piso_name = this_piso_name[0]#to get "Turmalina" from ['Turmalina']
-
+    if len(this_piso_name) == 0:
+        this_piso_name = "Turmalina"#change this to a redirect
+    else:
+        this_piso_name = this_piso_name[0]#to get "Turmalina" from ['Turmalina']
     template_name = 'inventory/tex/poster.tex'
     piso_boxes = get_list_or_404(Box, piso=this_piso_name)
     items = Item.objects.filter(box__in=piso_boxes, ).order_by('box').all()

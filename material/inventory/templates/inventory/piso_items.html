@@ -1,7 +1,9 @@
 {% extends "inventory/base.html" %}
 {% block content%}
 <h1 class="mb-3">Artículos de {{ view.this_piso_name }}</h1>
-
+{% if items %}
+<div class="btn custom-button nav-shadow" onclick="location.href='{% url 'inventory-to-pdf' view.this_piso %}'">Exportar Listado a PDF</div>
+{% endif %}
 	<form method="get" action="{% url 'piso-items' view.kwargs.piso %}">
 	    <p>
 	    	<h6>Filtrar por nombre:</h6>
