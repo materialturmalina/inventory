@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,18 +9,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<!-- FontAwesome -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-
-
     <link rel="stylesheet" type="text/css" href="{% static 'inventory/main.css' %}">
 	<link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}"/>
 
-	{% if title %}
-		<title>Material Turmalina - {{ title }}</title>
-	{% else %}
-		<title>Material Turmalina</title>
-	{% endif %}
+	<title>Material Turmalina - Inicio</title>
 </head>
 <body>
 	<header class="site-header">
@@ -42,7 +33,6 @@
 	        <!-- Navbar Right Side -->
 	        <div class="navbar-nav">
 	        	{% if user.is_authenticated %}
-					<i class="fas fa-search nav-item nav-link" style="line-height: 25px; cursor: pointer;" onclick="location.href='{% url 'start' %}'"></i>
 					<a class="nav-item nav-link" href="{% url 'box-create' %}">Añadir Caja</a>
 	          		<a class="nav-item nav-link" href="{% url 'item-create' %}">Añadir Artículo</a>
 	          		<a class="nav-item nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
@@ -60,7 +50,7 @@
 
 	<main role="main" class="container">
 	  <div class="row">
-	    <div class="col-md-8">
+	    <div class="col-md-12">
 	    	{% if messages %}
 	    		{% for message in messages%}
 	    			<div class="alert alert-{{ message.tags }}">
@@ -68,36 +58,67 @@
 	    			</div>
 	    		{% endfor %}
 	    	{% endif %}
-	    	{% block content %}{% endblock %}
-	    </div>
-	    <div class="col-md-4">
-	      <div class="content-section nav-shadow">
-	        <h3>Panel de navegación</h3>
-	        <p class='text-muted'>A continuación puedes ver algunos links de interés:
-	          <ul class="list-group">
-   	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'pisos-list' %}">Pisos</a></li>
-	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-list' %}">Cajas</a></li>
-	            <li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'inventory-home' %}">Artículos</a></li>
-	            {% if user.is_authenticated %}
-					<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'box-create' %}">Añadir una Caja</a></li>
-					<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'item-create' %}">Añadir un Artículo</a></li>
-	          		<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'logout' %}">Cerrar Sesión</a></li>
-	          		<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'profile' %}">Mi Perfil</a></li>
-	          	{% else %}
-	          		<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'login' %}">Iniciar Sesión</a></li>
-	          		<li class="list-group-item list-group-item-light"><a class="text-muted" href="{% url 'register' %}">Regístrate</a></li>
-	          	{% endif %}
-	          </ul>
-	        </p>
-	      </div>
+	    	{% block content %}
+					<div style="text-align: center;" class="col-md-12 mb-3">
+						<img src="media/logos/small-logo.png" class="rounded-circle nav-shadow">  
+					</div>
+					<input id="search_here" class="form-control custom-input-text nav-shadow" placeholder="Buscar material..." />
+					<div id="container" class="mt-3 mb-3">
+						{% for item in items %}
+							<article class="media content-section nav-shadow">						
+								<div class="media-body" onclick="location.href='{{ item.item_url }}';">
+									<div style="float: left; width: 45%; cursor: pointer;"><h4 onclick="location.href='${items['item_url']}';" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">{{ item.item_name }}</h4></div>
+									<div style="float: right; text-align: right; width: 45%;"><p>{{ item.item_box }}, <b>{{ item.item_piso }}</b></p></div> 
+								</div>
+							</article>
+						{% endfor %}
+					</div>
+			{% endblock content %}
 	    </div>
 	  </div>
 	</main>
-
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
+
+{% block scripts %}
+<script>
+	$('#search_here').focus();
+
+    const data = '{{items_json}}'
+    console.log(data)
+
+	const rdata = JSON.parse(data.replace(/&quot;/g,'"'))
+	console.log(rdata)
+
+	const input = document.getElementById('search_here')
+	console.log(input)
+
+	let filteredArr = []
+
+	input.addEventListener('keyup', (e)=>{
+		container.innerHTML = ""
+		filteredArr = rdata.filter(items=> items['item_name'].toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(e.target.value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")))
+		console.log(filteredArr)
+		if (filteredArr.length > 0){
+			filteredArr.map(items=>{
+				container.innerHTML +=
+				`<article class="media content-section nav-shadow">						
+					<div class="media-body">
+						<div style="float: left; width: 45%; cursor: pointer;"><h4 onclick="location.href='${items['item_url']}';" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">${items['item_name']}</h4></div>
+						<div style="float: right; text-align: right; width: 45%;"><p>${items['item_box']}, <b>${items['item_piso']}</b></p></div> 
+					</div>
+				</article>`
+			})
+		} else {
+			container.innerHTML = "<b>No se han obtenido resultados...</b>"
+		}
+	})
+
+</script>
+{% endblock scripts %}
+
 </html>

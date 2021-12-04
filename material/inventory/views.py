@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Item, PISOS, Box
 from django.contrib.auth.models import User
 from django_tex.shortcuts import render_to_pdf
+import json
 
 #from django.db.models import CharField
 #from django.db.models.functions import Lower
@@ -18,6 +19,30 @@ def pisos(request):
     	'pisos_list':PISOS
     }
     return render(request, 'inventory/pisos_view.html', context)
+
+class Start(ListView):
+	model = Item
+	template_name = 'inventory/start.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(Start, self).get_context_data(**kwargs)
+		context['items_json'] = []
+		for item in Item.objects.all().order_by('item_name'):
+			box = Box.objects.filter(id=item.box_id).first()
+			it = {
+				"item_name": item.item_name,
+				"item_box": str(box.box_number) + ": " + box.box_name,
+				"item_piso": box.piso,
+				"item_id": item.id,
+				"item_url": "item/" + str(item.id) + "/"
+			}
+			context['items_json'].append(it)
+		context['items'] = context['items_json']
+		context['items_json'] = json.dumps(context['items_json'], default=str)
+		
+		#context['items'] = Item.objects.all().order_by('item_name')
+		#print(context['global_data'])
+		return context
 
 class ItemListView(ListView):
 	model = Item
