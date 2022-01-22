@@ -41,8 +41,8 @@
 	        </div>
 	        <!-- Navbar Right Side -->
 	        <div class="navbar-nav">
+				<i class="fas fa-search nav-item nav-link" style="line-height: 25px; cursor: pointer;" onclick="location.href='{% url 'start' %}'"></i>
 	        	{% if user.is_authenticated %}
-					<i class="fas fa-search nav-item nav-link" style="line-height: 25px; cursor: pointer;" onclick="location.href='{% url 'start' %}'"></i>
 					<a class="nav-item nav-link" href="{% url 'box-create' %}">Añadir Caja</a>
 	          		<a class="nav-item nav-link" href="{% url 'item-create' %}">Añadir Artículo</a>
 	          		<a class="nav-item nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
